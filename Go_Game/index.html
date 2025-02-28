@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>围棋应用</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans:wght@400;500;700&family=Noto+Serif+SC:wght@400;700&family=Noto+Serif:wght@400;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>围棋应用</h1>
+        
+        <div class="game-layout">
+            <div class="left-panel" id="left-panel">
+                <!-- 玩家指示器将在这里动态插入 -->
+            </div>
+            
+            <div class="center-panel">
+                <!-- 分数显示将移到这里 -->
+                <div id="score-container"></div>
+                
+                <div id="board-container">
+                    <div id="board"></div>
+                </div>
+            </div>
+            
+            <div class="right-panel" id="right-panel">
+                <!-- 游戏信息和分数将在这里动态插入 -->
+                <div id="controls">
+                    <button id="reset-button">重新开始</button>
+                    <button id="score-button">数子</button>
+                    <button id="resign-button">认输</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="app.js"></script>
+</body>
+</html> 

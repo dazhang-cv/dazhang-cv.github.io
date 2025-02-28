@@ -1,0 +1,567 @@
+/* 全局样式 */
+body {
+    font-family: 'Noto Sans', 'Noto Sans SC', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: 'Noto Serif', 'Noto Serif SC', serif;
+    text-align: center;
+    color: #2c3e50;
+    margin: 20px 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    letter-spacing: 1px;
+}
+
+/* 棋盘样式 */
+#board-container {
+    position: relative;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    background-color: #e6c89c;
+    padding: 20px;
+    box-sizing: content-box;
+    z-index: 1;
+}
+
+#board {
+    position: relative;
+    margin: 0 auto;
+    background-color: #dcb35c;
+    border-radius: 2px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.grid-line {
+    position: absolute;
+    background-color: #333;
+    opacity: 0.7;
+}
+
+.horizontal {
+    height: 1px;
+    width: calc(100% - 40px);
+    left: 20px;
+}
+
+.vertical {
+    width: 1px;
+    height: calc(100% - 40px);
+    top: 20px;
+}
+
+/* 加粗边界线 */
+.border-line {
+    position: absolute;
+    background-color: #333;
+    opacity: 0.9;
+}
+
+.border-top {
+    height: 2px;
+    width: calc(100% - 40px);
+    left: 20px;
+    top: 20px;
+}
+
+.border-bottom {
+    height: 2px;
+    width: calc(100% - 40px);
+    left: 20px;
+    bottom: 20px;
+}
+
+.border-left {
+    width: 2px;
+    height: calc(100% - 40px);
+    left: 20px;
+    top: 20px;
+}
+
+.border-right {
+    width: 2px;
+    height: calc(100% - 40px);
+    right: 20px;
+    top: 20px;
+}
+
+.star-point {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #333;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 棋子样式 */
+.stone {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+.black-stone {
+    background: radial-gradient(circle at 35% 35%, #666, #000);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.white-stone {
+    background: radial-gradient(circle at 35% 35%, #fff, #f0f0f0);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    border: 1px solid #ccc;
+}
+
+/* 游戏信息区域 */
+#game-info {
+    text-align: center;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    width: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    border-left: none;
+    border-right: none;
+}
+
+#game-info::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #3498db, #2ecc71);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+}
+
+#game-info.fade-in::after {
+    transform: scaleX(1);
+}
+
+/* 分数容器样式 */
+#score-container {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* 分数显示样式 */
+#score-display {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    padding: 12px 15px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid #3498db;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+}
+
+#score-display div {
+    margin: 0 5px;
+    white-space: nowrap;
+}
+
+#score-display .score-result {
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 1.05rem;
+    margin-left: auto;
+    padding-left: 10px;
+    border-left: 1px solid #eee;
+}
+
+/* 获胜信息样式 */
+.winner-black {
+    border-left: 4px solid #333 !important;
+}
+
+.winner-white {
+    border-left: 4px solid #fff !important;
+    border-right: 1px solid #ddd;
+}
+
+.winner-tie {
+    border-left: 4px solid #3498db !important;
+}
+
+/* 分数动画 */
+@keyframes scoreAppear {
+    0% { transform: translateY(-20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.score-appear {
+    animation: scoreAppear 0.5s ease-out forwards;
+}
+
+/* 控制区域样式 */
+#controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+#controls button {
+    width: 100%;
+    padding: 12px 10px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    margin: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#controls button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0));
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+#controls button:hover::after {
+    opacity: 1;
+}
+
+#controls button:active {
+    transform: translateY(2px);
+}
+
+/* 重新开始按钮 - 蓝色 */
+#reset-button {
+    background-color: #3498db;
+    box-shadow: 0 4px 0 #2980b9;
+}
+
+#reset-button:active {
+    box-shadow: 0 2px 0 #2980b9;
+}
+
+/* 数子按钮 - 绿色 */
+#score-button {
+    background-color: #2ecc71;
+    box-shadow: 0 4px 0 #27ae60;
+}
+
+#score-button:active {
+    box-shadow: 0 2px 0 #27ae60;
+}
+
+/* 认输按钮 - 红色 */
+#resign-button {
+    background-color: #e74c3c;
+    box-shadow: 0 4px 0 #c0392b;
+}
+
+#resign-button:active {
+    box-shadow: 0 2px 0 #c0392b;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .game-layout {
+        gap: 20px;
+    }
+    
+    .right-panel {
+        width: 220px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .game-layout {
+        gap: 15px;
+    }
+    
+    .left-panel, .right-panel {
+        margin: 0;
+    }
+    
+    #score-display {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+    
+    #score-display div {
+        margin: 3px 0;
+    }
+    
+    #score-display .score-result {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        margin-top: 5px;
+        padding-top: 5px;
+        border-top: 1px solid #eee;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .left-panel, .right-panel {
+        flex-direction: column;
+    }
+    
+    #player-indicator {
+        flex-direction: row;
+    }
+    
+    #controls {
+        flex-direction: column;
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: stronger-pulse 1.5s infinite;
+}
+
+@keyframes stronger-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+    100% { transform: scale(1); }
+}
+
+/* 最后一手棋的标记 */
+.last-move::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.black-stone.last-move::after {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.white-stone.last-move::after {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* 棋子放置动画 */
+@keyframes placeStone {
+    0% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.stone {
+    animation: placeStone 0.3s ease-out forwards;
+}
+
+/* 玩家指示器样式 */
+#player-indicator {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.player-indicator {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+    transform: scale(0.95);
+}
+
+.player-indicator.active {
+    opacity: 1;
+    transform: scale(1);
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.player-indicator.active::before {
+    content: '当前回合';
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background-color: #3498db;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.indicator-stone {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.indicator-label {
+    font-weight: 600;
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+/* 游戏布局 */
+.game-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.left-panel {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-self: center;
+    margin-right: 10px;
+}
+
+.center-panel {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right-panel {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-self: center;
+    margin-left: 10px;
+}
+
+/* 回合指示器样式 */
+.turn-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.turn-stone {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+/* 获胜显示样式 */
+#winner-display {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    padding: 12px 15px;
+    width: 100%;
+    margin: 0 auto 15px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid #3498db;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* 获胜者样式 */
+.player-indicator.winner {
+    opacity: 1;
+    transform: scale(1);
+    background-color: rgba(255, 215, 0, 0.2);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    animation: winner-glow 2s infinite alternate;
+}
+
+@keyframes winner-glow {
+    from { box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+    to { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+} 
